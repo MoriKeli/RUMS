@@ -1,0 +1,55 @@
+{% extends 'students/base.html' %}{% block title %}Frequently Asked Questions{% endblock %}
+{% load crispy_forms_tags %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta content="width=device-width, initial-scale=1.0" name="viewport">
+</head>
+<body>
+	{% block content %}
+	<main id="main" class="main">
+		<section class="section faq">
+			<div class="row">
+				<div class="col-lg-8">
+					<div class="card">
+						<div class="card-body">
+							<h5 class="card-title">Dolore occaecati ducimus quam</h5>
+							<div class="accordion accordion-flush" id="faq-group-3">
+
+								<div class="accordion-item">
+									<h2 class="accordion-header">
+										<button class="accordion-button collapsed" data-bs-target="#faqsThree-1" type="button" data-bs-toggle="collapse">
+										Assumenda doloribus est fugiat sint incidunt animi totam nisi?
+										</button>
+									</h2>
+									<div id="faqsThree-1" class="accordion-collapse collapse" data-bs-parent="#faq-group-3">
+										<div class="accordion-body">
+										Ut quasi odit odio totam accusamus vero eius. Nostrum asperiores voluptatem eos nulla ab dolores est asperiores iure. Quo est quis praesentium aut maiores. Corrupti sed aut expedita fugit vero dolorem. Nemo rerum sapiente. A quaerat dignissimos.
+										</div>
+									</div>
+								</div>
+
+								<div class="accordion-item">
+									<h2 class="accordion-header">
+										<button class="accordion-button collapsed" data-bs-target="#faqsThree-2" type="button" data-bs-toggle="collapse">
+										Consequatur saepe explicabo odio atque nisi?
+										</button>
+									</h2>
+									<div id="faqsThree-2" class="accordion-collapse collapse" data-bs-parent="#faq-group-3">
+										<div class="accordion-body">
+										In minus quia impedit est quas deserunt deserunt et. Nulla non quo dolores minima fugiat aut saepe aut inventore. Qui nesciunt odio officia beatae iusto sed voluptatem possimus quas. Officia vitae sit voluptatem nostrum a.
+										</div>
+									</div>
+								</div>
+
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
+	</main>
+	{% endblock %}
+</body>
+</html>
