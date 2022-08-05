@@ -64,6 +64,8 @@ class Units(models.Model):
     id = models.CharField(max_length=15, primary_key=True, editable=False)
     scholar = models.ForeignKey(AcademicProfile, on_delete=models.CASCADE, editable=False)
     unit = models.CharField(max_length=100, blank=False)
+    study_mode = models.CharField(max_length=50, blank=False)
+    confirmed = models.BooleanField(default=False, editable=False, blank=False)
     registered = models.DateTimeField(auto_now_add=True)
     
     def __str__(self):

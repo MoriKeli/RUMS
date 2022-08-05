@@ -100,3 +100,26 @@ class EditAcademicProfileForm(forms.ModelForm):
     class Meta:
         model = AcademicProfile
         fields = ['year', 'semester', 'hostel']
+
+
+class UnitRegistrationForm(forms.ModelForm):
+    CHOICE_STUDY = (
+        (None, '-- Select study mode --'),
+        ('Online', 'Online'),
+        ('Regular', 'Regular'),
+    )
+    CHOICE_UNITS = (
+        (None, '-- Register your units --'),
+        ('Unit 1', 'Unit 1'),
+        ('Unit 2', 'Unit 2'),
+        ('Unit 3', 'Unit 3'),
+        ('Unit 4', 'Unit 4'),
+        ('Unit 5', 'Unit 5'),
+        ('Unit 6', 'Unit 6'),
+    )
+    study_mode = forms.ChoiceField(widget=forms.Select(attrs={'type': 'select', 'class': 'mt-2 mb-2'}), label='', required=True, choices=CHOICE_STUDY)
+    unit = forms.ChoiceField(widget=forms.Select(attrs={'type': 'select'}), label='', required=True, choices=CHOICE_UNITS)
+    
+    class Meta:
+        model = Units
+        fields = ['study_mode', 'unit']

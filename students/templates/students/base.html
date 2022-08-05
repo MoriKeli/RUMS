@@ -15,10 +15,10 @@
         <div class="d-flex align-items-center justify-content-between">
             {% if user.is_authenticated %}<a href="{% url 'homepage' %}" class="logo d-flex align-items-center">
                 <img src="{% static 'logo.jpg' %}" class="rounded-circle" alt="logo">
-                <span class="d-none d-lg-block">S.Portal</span>
+                <span class="d-none d-lg-block">Student Portal</span>
             </a>{% else %}<a href="{% url 'login' %}" class="logo d-flex align-items-center">
                 <img src="{% static 'logo.jpg' %}" class="rounded-circle" alt="logo">
-                <span class="d-none d-lg-block">S.Portal</span>
+                <span class="d-none d-lg-block">Student Portal</span>
             </a>{% endif %}
             {% if user.is_authenticated %}<i class="bi bi-list toggle-sidebar-btn"></i>{% endif %}
         </div>
@@ -116,7 +116,7 @@
                     <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
                         <li class="dropdown-header">
                             <h6>{{request.user.studentprofile|title|default:"--"}}</h6>
-                            <span>{{request.user.studentprofile.year|default:"Edit your profile"}}</span>
+                            <span>{{request.user.studentprofile.academicprofile.year|default:"Edit your profile"}}</span>
                         </li>
                         <li><hr class="dropdown-divider"></li>
                         <li>
@@ -126,7 +126,6 @@
                             </a>
                         </li>
                         <li><hr class="dropdown-divider"></li>
-            
                         <li>
                             <a class="dropdown-item d-flex align-items-center" href="">
                                 <i class="bi bi-gear"></i>
@@ -134,7 +133,6 @@
                             </a>
                         </li>
                         <li><hr class="dropdown-divider"></li>
-            
                         <li>
                             <a class="dropdown-item d-flex align-items-center" href="">
                                 <i class="bi bi-question-circle"></i>
@@ -143,10 +141,10 @@
                         </li>
                         <li><hr class="dropdown-divider"></li>
                         <li>
-                        <a class="dropdown-item d-flex align-items-center" href="{% url 'logout' %}">
-                            <i class="bi bi-box-arrow-right"></i>
-                            <span>Logout</span>
-                        </a>
+                            <a class="dropdown-item d-flex align-items-center" href="{% url 'logout' %}">
+                                <i class="bi bi-box-arrow-right"></i>
+                                <span>Logout</span>
+                            </a>
                         </li>    
                     </ul>
                 </li>
@@ -165,7 +163,7 @@
             </li>
     
             <li class="nav-item">
-                <a class="nav-link" href="#">
+                <a class="nav-link" href="{% url 'unit_registration' %}">
                     <i class="bi bi-diagram-3-fill"></i><span>Unit Registration</span>
                 </a>
             </li>
@@ -175,8 +173,8 @@
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#">
-                    <i class="bi bi-arrow-up-square-fill"></i><span>Upload Assignment</span>
+                <a class="nav-link" href="{% url 'assignments' %}">
+                    <i class="bi bi-cloud-arrow-up-fill"></i><span>Upload Assignment</span>
                 </a>
             </li>
             <li class="nav-item">
@@ -186,7 +184,7 @@
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="{% url 'homepage' %}" data-bs-toggle="modal" data-bs-target="#exam-card">
-                    <i class="bi bi-card-image"></i><span>Exam Card</span>
+                    <i class="bi bi-credit-card-fill"></i><span>Exam Card</span>
                 </a>
             </li>
 

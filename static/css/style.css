@@ -32,7 +32,9 @@ h1, h2, h3, h4, h5, h6 {
 		padding: 20px;
 	}
 }
-
+.logout {
+	margin-top: 7%;
+}
 .pagetitle {
   	margin-bottom: 10px;
 }
@@ -317,7 +319,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 @media (min-width: 1200px) {
 	.logo {
-		width: 220px;
+		width: 237px;
 	}
 }
 .logo img {
@@ -599,13 +601,13 @@ h1, h2, h3, h4, h5, h6 {
 .sidebar-nav .nav-link .bi-currency-exchange {
 	color:#ffc107 ;
 }
-.sidebar-nav .nav-link .bi-arrow-up-square-fill {
-	color: teal;
+.sidebar-nav .nav-link .bi-cloud-arrow-up-fill {
+	color: royalblue;
 }
 .sidebar-nav .nav-link .bi-bank2 {
 	color: saddlebrown;
 }
-.sidebar-nav .nav-link .bi-card-image {
+.sidebar-nav .nav-link .bi-credit-card-fill {
 	color: rgb(247, 36, 12);
 }
 .sidebar-nav .nav-link .bi-person-bounding-box {

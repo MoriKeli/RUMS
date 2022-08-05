@@ -1,4 +1,8 @@
-from .forms import LoginForm, SignUpForm, UpdateStudentProfileForm, UpdateAcademicDetailsForm, EditAcademicProfileForm, EditProfile
+from .forms import (
+    LoginForm, SignUpForm, UnitRegistrationForm, UpdateStudentProfileForm,
+    UpdateAcademicDetailsForm, EditAcademicProfileForm, EditProfile,
+
+)
 from .models import StudentProfile, AcademicProfile, Units
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
@@ -30,8 +34,10 @@ def create_account_view(request):
 
 @login_required(login_url='login')
 def homepage_view(request):
+    booked_units = Units.objects.filter(scholar=request.user.studentprofile.academicprofile)
     
-    context = {}
+    
+    context = {'booked_units': booked_units}
     return render(request, 'students/homepage.html', context)
 
 
@@ -78,6 +84,33 @@ def student_profile_view(request):
     }
     return render(request, 'students/profile.html', context)
 
+
+@login_required(login_url='login')
+def register_units_view(request):
+    reg_form = UnitRegistrationForm()
+
+    if request.method == 'POST':
+        reg_form = UnitRegistrationForm(request.POST)
+
+        if reg_form.is_valid():
+            reg = reg_form.save(commit=False)
+            reg.scholar = request.user.studentprofile.academicprofile
+            reg.confirmed = True
+            reg.save()
+            
+            messages.info(request, f'Unit: {reg.unit} booked successfully')
+            return redirect('unit_registration')
+        
+    student_units = Units.objects.filter(scholar=request.user.studentprofile.academicprofile)
+    context = {'registration_form': reg_form, 'booked_units': student_units}
+    return render(request, 'students/unit-registration.html', context)
+
+
+def upload_assignments_view(request):
+    
+    
+    context = {}
+    return render(request, 'students/assignments.html', context)
 
 class LogoutUser(LogoutView):
     template_name = 'students/logout.html'

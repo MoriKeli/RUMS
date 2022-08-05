@@ -1,0 +1,93 @@
+{% extends 'students/base.html' %}{% block title %}Register your units{% endblock %}
+{% load crispy_forms_tags %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
+    {% block content %}
+    <main class="main" id="main">
+        <section class="section dashboard">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="card">
+                        <div class="card-body pt-3">
+                            <div class="modal fade" id="register-units" tabindex="-1">
+								<div class="modal-dialog modal-md">
+									<div class="modal-content">
+										<div class="modal-header">
+											<h5 class="modal-title">Unit Registration Form</h5>
+											<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+										</div>
+										<div class="modal-body">
+											<form action="" method="post">
+                                                {% csrf_token %}
+                                                <b>Reg. No. {{request.user.studentprofile.academicprofile.reg_no}} is booking units</b>
+                                                <img src="{{request.user.studentprofile.pic.url}}" class="rounded-circle float-end mt-0 mb-2" height="50px" width="50px" alt="img">
+                                                <hr class="dropdown-divider">
+                                                {{registration_form|crispy}}
+                                                <div class="modal-footer mt-2">
+                                                    <button type="submit" class="btn btn-primary">Register</button>
+                                                </div>
+                                            </form>
+										</div>
+										
+									</div>
+								</div>
+							</div>
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <h6 class="text-center">
+                                        Registration for academic year 2021/2022, semester 1. I am taking {{request.user.studentprofile.academicprofile.course|default:'"Unknown course"'}}
+                                        {% if request.user.studentprofile.academicprofile.year == '1st year' %}Y1S{{request.user.studentprofile.academicprofile.semester}}
+                                        {% elif request.user.studentprofile.academicprofile.year == '2nd year' %}Y2S{{request.user.studentprofile.academicprofile.semester}}
+                                        {% elif request.user.studentprofile.academicprofile.year == '3rd year' %}Y3S{{request.user.studentprofile.academicprofile.semester}}
+                                        {% elif request.user.studentprofile.academicprofile.year == '4th year' %}Y4S{{request.user.studentprofile.academicprofile.semester}}
+                                        {% endif %}
+                                    </h6>
+                                    <p class="form-text text-muted text-center">
+                                        <a href="{% url 'unit_registration' %}" data-bs-toggle="modal" data-bs-target="#register-units">Click here to register your units</a>
+                                    </p>
+                                    <hr class="dropdown-divider mb-0">
+                                    {% include 'messages.html' %}
+                                    <h5 class="card-title mb-0">Booked Units</h5>
+                                    <div class="table-responsive">
+                                        <table class="table table-sm table-bordered table-condensed table-striped table-hover">
+                                            <thead>
+                                                <tr class="table-warning">
+                                                    <th>No.</th>
+                                                    <th>Unit Name</th>
+                                                    <th>Study Mode</th>
+                                                    <th>Status</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                {% for unit in booked_units %}
+                                                <tr>
+                                                    <td>{{ forloop.counter }}</td>
+                                                    <td>{{ unit.unit }}</td>
+                                                    <td>{{ unit.study_mode }}</td>
+                                                    <td>{% if unit.confirmed is True %}Registered <i class="bi bi-check-circle-fill ml-4" style="color: rgb(40, 214, 40);"></i>{% endif %}</td>
+                                                </tr>
+                                                {% empty %}
+                                                <tr><td class="form-text text-muted text-center" colspan="4">No data available</td></tr>
+                                                {% endfor %}
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+        
+            </div>
+        </section>
+    </main>
+    {% endblock %}
+</body>
+</html>
