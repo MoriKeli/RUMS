@@ -1,4 +1,4 @@
-A school management system built using django
+# Student Portal
 
 #### Technologies used:
   - HTML
