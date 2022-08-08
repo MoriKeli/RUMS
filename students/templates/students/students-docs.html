@@ -1,0 +1,107 @@
+{% extends 'students/base.html' %}{% block title %}Official Documents{% endblock %}
+{% load crispy_forms_tags %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
+    {% block content %}
+    <main class="main" id="main">
+        <section class="section dashboard">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="card">
+                        <div class="card-body pt-3">
+                            <h5 class="text-end"><i class="bi bi-folder-fill" style="color: #ffc107;"></i> Student Documents</h5><hr class="dropdown-divider">                          
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="p-3">
+                                        <h5>Exam card</h5><hr class="dropdown-divider">
+                                        <p class="text-center"><a href="{% url 'documents' %}" data-bs-toggle="modal" data-bs-target="#exam-card">View your exam card</a></p>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="p-3">
+                                        <h5>Non-residence form</h5><hr class="dropdown-divider">
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="p-3">
+                                        <h5>Deferment form</h5><hr class="dropdown-divider">
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="p-3">
+                                        <h5>Lib. receipt</h5><hr class="dropdown-divider">
+                                    </div>
+                                </div>
+                            </div> 
+                        </div>
+                    </div>
+
+                    <div class="modal fade" id="exam-card" tabindex="-1">
+                        <div class="modal-dialog modal-lg">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title">Exam card</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    <div class="card p-3">
+                                        <div class="row">
+                                            <div class="col-md-10">
+                                                <h6>Name: <b>{{request.user.studentprofile|title}}</b></h6>
+                                                <h6>Course: <b>{{request.user.studentprofile.academicprofile.course}}</b></h6>
+                                                <h6>Registration No.: <b>{{request.user.studentprofile.academicprofile.reg_no|upper}}</b></h6>
+                                                <h6>School: <b>{{request.user.studentprofile.academicprofile.school}}</b></h6>
+                                                <h6>Year: <b>{{request.user.studentprofile.academicprofile.year}}</b></h6>
+                                                <h6>Semester: <b>{{request.user.studentprofile.academicprofile.semester}}</b></h6>
+                                                
+                                            </div>
+                                            <div class="col-md-2">
+                                                <img src="{{request.user.studentprofile.pic.url}}" class="rounded-circle mt-2" height="100px" width="100px" alt="">
+                                            </div>
+                                            <div class="col-md-12">
+                                                <hr class="dropdown-divider">
+                                                <div class="table-responsive">
+                                                    <table class="table table-bordered table-condensed table-striped">
+                                                        <thead>
+                                                            <tr>
+                                                                <th>Unit</th>
+                                                                <th>Booklet No.</th>
+                                                                <th>Invigilator's Signature</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            {% for unit in booked_units %}
+                                                            <tr>
+                                                                <td>{{ unit.unit }}</td>
+                                                                <td></td>
+                                                                <td></td>
+                                                            </tr>
+                                                            {% endfor %}
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="modal-footer mt-2">
+                                        <a href="" class="btn btn-primary">Download</a>
+                                    </div>
+                                </div>
+                                
+                            </div>
+                        </div>
+                    </div>
+                </div>
+        
+            </div>
+        </section>
+    </main>
+    {% endblock %}
+</body>
+</html>
