@@ -1,5 +1,5 @@
 {% extends 'students/base.html' %}{% block title %}Assignments{% endblock %}
-{% load crispy_forms_tags %}
+{% load crispy_forms_tags %}{% load custom_tags %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -17,16 +17,78 @@
                         <div class="card-body p-3">
                             <h5 class="text-end">Your Assignments</h5><hr class="dropdown-divider">
                             <h6 class="text-end"><a href="{% url 'assignments' %}" data-bs-toggle="modal" data-bs-target="#upload-assignment"><i class="bi bi-plus-circle-fill text-end" style="font-size: 20px; color: blue;"></i></a></h6>
-                            
+                            {% include 'messages.html' %}
+                            <div class="table-responsive">
+                                <table class="table table-hover table-bordered table-condensed table-sm">
+                                    <thead>
+                                        <tr class="table-success text-center">
+                                            <th>No.</th>
+                                            <th>Unit</th>
+                                            <th>File</th>
+                                            <th>Status</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {% for assignment in assignments %}
+                                        <tr>
+                                            <td>{{ forloop.counter }}</td>
+                                            <td>{{ assignment.unit }}</td>
+                                            <td>
+                                                <a href="{% url 'assignments' %}" data-bs-toggle="modal" data-bs-target="#assignment-info-{{assignment.id}}">{{ assignment.file_type }}</a>
+                                            </td>
+                                            <td>Uploaded <i class="bi bi-cloud-check-fill mt-2" style="color: rgb(31, 182, 31); font-size: 20px"></i></td>
+                                        </tr>
+
+                                        <div class="modal fade" id="assignment-info-{{assignment.id}}" tabindex="-1">
+                                            <div class="modal-dialog modal-md">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h5 class="modal-title"><i class="bi bi-cloud-check-fill" style="color: rgb(31, 182, 31);"></i> Assignment info.</h5>
+                                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        <div class="row">
+                                                            <div class="col-md-9">
+                                                                <h6><b>Unit: </b>{{ assignment.unit }}</h6>
+                                                                <h6><b>Document: </b>{{ assignment.file_type }}</h6>
+                                                                <h6><b>Extension: </b>{{ assignment.file_type|file_extension }}</h6>
+                                                                <h6><b>Student Name: </b>{% if assignment.stud == request.user.studentprofile.academicprofile %}You{% else %}{{assignment.stud}}{% endif %}</h6>
+                                                            </div>
+                                                            <div class="col-md-2">
+                                                                {% if assignment.file_type|file_extension == '.pdf' %}
+                                                                <i class="bi bi-file-earmark-pdf-fill" style="color: #dd3545; font-size: 100px;"></i>
+                                                                {% elif assignment.file_type|file_extension == '.doc' or assignment.file_type|file_extension == 'docx' or assignment.file_type|file_extension == '.odt' %}
+                                                                <i class="bi bi-file-earmark-word-fill" style="color: rgb(7, 7, 161); font-size: 100px;"></i>
+                                                                {% elif assignment.file_type|file_extension == 'xlsx' %}
+                                                                <i class="bi bi-file-earmark-ppt-fill" style="color: orange; font-size: 100px;"></i>
+                                                                {% elif assignment.file_type|file_extension == '.ppt' %}
+                                                                <i class="bi bi-file-earmark-spreadsheet-fill" style="color: rgb(66, 243, 66); font-size: 100px;"></i>
+                                                                {% endif %}
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="modal-footer mt-2">
+                                                        <p class="small form-text text-muted text-center fw-bold">Uploaded: <b class="text-success">{{assignment.uploaded|date:"D. d-M-Y h:i a"}}</b></p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        {% empty %}
+                                        <tr><td colspan="4" class="text-center text-muted">You have not uploaded any assignments yet</td></tr>
+                                        {% endfor %}
+                                    </tbody>
+                                </table>
+                            </div>
+
                             <div class="modal fade" id="upload-assignment" tabindex="-1">
                                 <div class="modal-dialog">
                                     <div class="modal-content">
                                         <div class="modal-header">
-                                            <h5 class="modal-title">Upload Assignment</h5>
+                                            <h5 class="modal-title"><i class="bi bi-cloud-plus-fill" style="color: rgb(7, 116, 7);"></i> Upload Assignment</h5>
                                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                         </div>
                                         <div class="modal-body">
-                                            <form action="" method="post">
+                                            <form action="" method="post" enctype="multipart/form-data">
                                                 {% csrf_token %}
                                                 {{assignment_form|crispy}}
                                                 <div class="modal-footer mt-2">

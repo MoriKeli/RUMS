@@ -1,5 +1,6 @@
-from .models import StudentProfile, AcademicProfile, Units
+from .models import StudentProfile, AcademicProfile, Units, Assignment
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
+from django.core.validators import FileExtensionValidator
 from django.contrib.auth.models import User
 from django import forms
 
@@ -123,3 +124,22 @@ class UnitRegistrationForm(forms.ModelForm):
     class Meta:
         model = Units
         fields = ['study_mode', 'unit']
+        
+
+class UploadAssignmentForm(forms.ModelForm):
+    CHOICE_UNITS = (
+        (None, '-- Register your units --'),
+        ('Unit 1', 'Unit 1'),
+        ('Unit 2', 'Unit 2'),
+        ('Unit 3', 'Unit 3'),
+        ('Unit 4', 'Unit 4'),
+        ('Unit 5', 'Unit 5'),
+        ('Unit 6', 'Unit 6'),
+    )
+    unit = forms.ChoiceField(widget=forms.Select(attrs={'type': 'select', 'class': 'mt-2'}), label='', required=True, choices=CHOICE_UNITS)
+    file_type = forms.FileField(widget=forms.FileInput(attrs={'type': 'file', 'class': 'mb-2'}), label='', required=True, validators=[FileExtensionValidator(['doc', 'docx', 'odt', 'pdf', 'ppt', 'xlsx'])])
+    
+    class Meta:
+        model = Assignment
+        fields = ['file_type', 'unit']
+    

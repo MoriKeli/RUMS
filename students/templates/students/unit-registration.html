@@ -55,7 +55,7 @@
                                     {% include 'messages.html' %}
                                     <h5 class="card-title mb-0">Booked Units</h5>
                                     <div class="table-responsive">
-                                        <table class="table table-sm table-bordered table-condensed table-striped table-hover">
+                                        <table class="table table-sm table-bordered table-condensed table-hover">
                                             <thead>
                                                 <tr class="table-warning">
                                                     <th>No.</th>
@@ -75,6 +75,7 @@
                                                 {% empty %}
                                                 <tr><td class="form-text text-muted text-center" colspan="4">No data available</td></tr>
                                                 {% endfor %}
+                                                <tr class="table-active"><td colspan="1" class="text-end fw-bold">Total Credits</td><td colspan="3" class="fw-bold text-center">{{request.user.studentprofile.academicprofile.credits}}</td></tr>
                                             </tbody>
                                         </table>
                                     </div>

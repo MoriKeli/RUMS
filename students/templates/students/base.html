@@ -24,14 +24,14 @@
         </div>
         {% if user.is_authenticated %}
         <div class="search-bar mt-3">
-          <form class="search-form d-flex align-items-center" method="POST" action="#">
+          <form class="search-form d-flex align-items-center" method="GET" action="">
             <input type="text" name="query" placeholder="Search" title="Enter search keyword">
             <button type="submit" title="Search"><i class="bi bi-search"></i></button>
           </form>
         </div>
     
         <nav class="header-nav ms-auto">
-          <ul class="d-flex align-items-center">
+            <ul class="d-flex align-items-center">
                 <li class="nav-item d-block d-lg-none">
                     <a class="nav-link nav-icon search-bar-toggle " href="#">
                         <i class="bi bi-search"></i>
@@ -39,8 +39,8 @@
                 </li>
                 <li class="nav-item dropdown">
                     <a class="nav-link nav-icon" href="#" data-bs-toggle="dropdown">
-                        <i class="bi bi-bell"></i>
-                        <span class="badge bg-primary badge-number">4</span>
+                        <i class="bi bi-bell-fill"></i>
+                        <span class="badge bg-danger badge-number">4</span>
                     </a>
             
                     <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow notifications">
@@ -74,37 +74,6 @@
                         <li class="dropdown-footer">
                             <a href="#">Show all notifications</a>
                         </li>
-                    </ul>
-                </li>
-    
-                <li class="nav-item dropdown">
-                    <a class="nav-link nav-icon" href="#" data-bs-toggle="dropdown">
-                        <i class="bi bi-chat-left-text"></i>
-                        <span class="badge bg-success badge-number">3</span>
-                    </a>
-                    <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow messages">
-                            <li class="dropdown-header">
-                                You have 3 new messages
-                                <a href="#"><span class="badge rounded-pill bg-primary p-2 ms-2">View all</span></a>
-                            </li>
-                            <li><hr class="dropdown-divider"></li>
-                
-                            <li class="message-item">
-                                <a href="#">
-                                    <img src="assets/img/messages-1.jpg" alt="" class="rounded-circle">
-                                    <div>
-                                        <h4>Maria Hudson</h4>
-                                        <p>Velit asperiores et ducimus soluta repudiandae labore officia est ut...</p>
-                                        <p>4 hrs. ago</p>
-                                    </div>
-                                </a>
-                            </li>
-            
-                            <li><hr class="dropdown-divider"></li>
-                
-                            <li class="dropdown-footer">
-                                <a href="#">Show all messages</a>
-                            </li>
                     </ul>
                 </li>
     
@@ -183,8 +152,8 @@
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="{% url 'homepage' %}" data-bs-toggle="modal" data-bs-target="#exam-card">
-                    <i class="bi bi-credit-card-fill"></i><span>Exam Card</span>
+                <a class="nav-link" href="{% url 'documents' %}">
+                    <i class="bi bi-folder-fill"></i><span>Student Docs</span>
                 </a>
             </li>
 
@@ -204,7 +173,7 @@
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="">
+                <a class="nav-link" href="{% url 'homepage' %}" data-bs-toggle="modal" data-bs-target="#contact-form">
                     <i class="bi bi-telephone-outbound-fill"></i>
                     <span>Contact</span>
                 </a>

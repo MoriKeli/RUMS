@@ -1,9 +1,9 @@
 from .forms import (
     LoginForm, SignUpForm, UnitRegistrationForm, UpdateStudentProfileForm,
-    UpdateAcademicDetailsForm, EditAcademicProfileForm, EditProfile,
+    UpdateAcademicDetailsForm, EditAcademicProfileForm, EditProfile, UploadAssignmentForm,
 
 )
-from .models import StudentProfile, AcademicProfile, Units
+from .models import Assignment, StudentProfile, AcademicProfile, Units
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.views import LoginView, LogoutView
@@ -33,9 +33,8 @@ def create_account_view(request):
 
 
 @login_required(login_url='login')
-def homepage_view(request):
+def homepage_view(request):    
     booked_units = Units.objects.filter(scholar=request.user.studentprofile.academicprofile)
-    
     
     context = {'booked_units': booked_units}
     return render(request, 'students/homepage.html', context)
@@ -107,10 +106,32 @@ def register_units_view(request):
 
 
 def upload_assignments_view(request):
+    upload_form = UploadAssignmentForm()
     
-    
-    context = {}
+    if request.method == 'POST':
+        upload_form = UploadAssignmentForm(request.POST, request.FILES)
+        
+        if upload_form.is_valid():
+            assignment = upload_form.save(commit=False)
+
+            assignment.stud = request.user.studentprofile.academicprofile
+            assignment.save()
+            
+            messages.success(request, 'Assignment uploaded successfully!')
+            return redirect('assignments')
+            
+    uploaded_assignments = Assignment.objects.filter(stud=request.user.studentprofile.academicprofile)
+    context = {'assignment_form': upload_form, 'assignments': uploaded_assignments}
     return render(request, 'students/assignments.html', context)
+
+
+@login_required(login_url='login')
+def student_documents_view(request):
+    booked_units = Units.objects.filter(scholar=request.user.studentprofile.academicprofile)
+    
+    context = {'booked_units': booked_units}
+    return render(request, 'students/students-docs.html', context)
+
 
 class LogoutUser(LogoutView):
     template_name = 'students/logout.html'

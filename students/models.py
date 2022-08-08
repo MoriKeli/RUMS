@@ -46,6 +46,7 @@ class AcademicProfile(models.Model):
     year = models.CharField(max_length=50, blank=False)
     semester = models.CharField(max_length=10, blank=False)
     hostel = models.CharField(max_length=100)
+    credits = models.PositiveIntegerField(default=0)
     certificate = models.ImageField(upload_to='Student-Docs/certs', blank=False, null=True)
     result_slip = models.ImageField(upload_to='Student-Docs/slips', blank=False, null=True)
     letter = models.ImageField(upload_to='Student-Docs/letters', blank=False, null=True)
@@ -74,4 +75,17 @@ class Units(models.Model):
     class Meta:
         verbose_name_plural = 'Student\'s Registered Units'
         ordering = ['scholar']
+        
+
+class Assignment(models.Model):
+    stud = models.ForeignKey(AcademicProfile, on_delete=models.CASCADE, editable=False)
+    file_type = models.FileField(upload_to='Assignments/', null=False, blank=False)
+    unit = models.CharField(max_length=100, blank=False)
+    uploaded = models.DateTimeField(auto_now_add=True)
+    
+    def __str__(self):
+        return f'{self.stud}'
+    
+    class Meta:
+        ordering = ['stud']
         
