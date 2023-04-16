@@ -1,3 +1,29 @@
+from django.contrib.auth.models import AbstractUser
 from django.db import models
 
-# Create your models here.
+
+class User(AbstractUser):
+    id = models.CharField(max_length=20, primary_key=True, unique=True, editable=False)
+    email = models.EmailField(unique=True)
+    gender = models.CharField(max_length=7, blank=False)
+    dob = models.DateField(null=True, blank=False)
+    age = models.PositiveIntegerField(default=0, editable=False)
+    phone_no = models.CharField(max_length=10, blank=False)
+    national_id = models.CharField(max_length=8, blank=False)
+    marital_status = models.CharField(max_length=10, blank=False)
+    religion = models.CharField(max_length=10, blank=False)
+    title = models.CharField(max_length=5, blank=False)
+    is_student = models.BooleanField(default=False)
+    is_teachingstaff = models.BooleanField(default=False)
+    is_classrep = models.BooleanField(default=False)
+    updated = models.DateTimeField(auto_now=True)
+
+    REQUIRED_FIELDS = ['username']
+    USERNAME_FIELD = 'email'
+
+    def __str__(self):
+        return f'{self.username}'
+    
+    class Meta:
+        ordering = ['username']
+        
