@@ -31,7 +31,7 @@ class StaffSignupView(View):
     def get(self, request):
 
         context = {}
-        return render(request, 'accounts/students.html', context)
+        return render(request, 'accounts/staff/staff.html', context)
     
     def post(self, request):
         form = StaffSignupForm()
@@ -48,7 +48,7 @@ class NonStaffSignupView(View):
     def get(self, request):
 
         context = {}
-        return render(request, 'accounts/students.html', context)
+        return render(request, 'accounts/staff/non-staff.html', context)
     
     def post(self, request):
         form = NonStaffSignupForm()
