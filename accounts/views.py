@@ -14,7 +14,7 @@ class StudentsSignupView(View):
     def get(self, request):
 
         context = {}
-        return render(request, 'accounts/students.html', context)
+        return render(request, 'accounts/students/signup.html', context)
     
     def post(self, request):
         form = StudentsSignupForm()
