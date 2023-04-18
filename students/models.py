@@ -81,7 +81,7 @@ class Assignments(models.Model):
 
 
 class Attendance(models.Model):
-    """ This mode stores attendance records of each student. """
+    """ This model stores attendance records of each student. """
     id = models.CharField(max_length=20, primary_key=True, unique=True, editable=False)
     student = models.ForeignKey(Students, on_delete=models.CASCADE, editable=False)
     unit = models.ForeignKey(Units, on_delete=models.CASCADE, editable=False)
@@ -99,3 +99,19 @@ class Attendance(models.Model):
         ordering = ['student', '-attendance_date']
     
 
+class Hostels(models.Model):
+    id = models.CharField(max_length=20, primary_key=True, unique=True, editable=False)
+    student = models.ForeignKey(Students, on_delete=models.CASCADE, editable=False)
+    name = models.CharField(max_length=30, blank=False)     # name of the hostel
+    landlord = models.CharField(max_length=50, blank=False)
+    caretaker = models.CharField(max_length=50, blank=False)
+    created = models.DateTimeField(auto_now_add=True)
+    updated = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return self.name
+    
+    class Meta:
+        ordering = ['student', 'name']
+        verbose_name_plural = 'Hostel Records'
+    
