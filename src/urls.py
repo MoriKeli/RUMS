@@ -9,6 +9,7 @@ admin.site.index_title = 'Karibu tena ...'
 
 urlpatterns = [
     path('auth/', include('accounts.urls')),
+    path('students/', include('students.urls')),
     path('admin/', admin.site.urls),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
