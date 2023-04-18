@@ -105,6 +105,7 @@ class Hostels(models.Model):
     """
     id = models.CharField(max_length=20, primary_key=True, unique=True, editable=False)
     student = models.ForeignKey(Students, on_delete=models.CASCADE, editable=False)
+    year = models.ForeignKey(AcademicYear, on_delete=models.CASCADE, editable=False)
     name = models.CharField(max_length=30, blank=False)     # name of the hostel
     landlord = models.CharField(max_length=50, blank=False)
     caretaker = models.CharField(max_length=50, blank=False)
