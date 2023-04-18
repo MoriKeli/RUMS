@@ -55,7 +55,7 @@ class StudentsRegistrationForm(forms.ModelForm):
     )
     docs = forms.FileField(
         widget=forms.FileInput(attrs={'type': 'file', 'placeholder': 'attach birth cert., KCSE result slip and your Secondary School leaving cert.', 'class': 'form-control', 'multiple': True}),
-        validators=FileExtensionValidator(['jpg', 'jpeg', 'pdf']),
+        validators=[FileExtensionValidator(['jpg', 'jpeg', 'pdf'])],
         help_text='Upload .jpg, .jpeg or .pdf files only!'
     )
 
