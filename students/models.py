@@ -100,6 +100,9 @@ class Attendance(models.Model):
     
 
 class Hostels(models.Model):
+    """ This model is used to store hostel records for each student. A ForeignKey is used to keep track of the hostel
+        a student has resided in his/her study period in the institution.
+    """
     id = models.CharField(max_length=20, primary_key=True, unique=True, editable=False)
     student = models.ForeignKey(Students, on_delete=models.CASCADE, editable=False)
     name = models.CharField(max_length=30, blank=False)     # name of the hostel
