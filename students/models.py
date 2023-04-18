@@ -108,6 +108,7 @@ class Hostels(models.Model):
     name = models.CharField(max_length=30, blank=False)     # name of the hostel
     landlord = models.CharField(max_length=50, blank=False)
     caretaker = models.CharField(max_length=50, blank=False)
+    residence_type = models.CharField(max_length=15, blank=False)   # does the student reside in the school or not
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
 
