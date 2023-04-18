@@ -23,7 +23,7 @@ class NewStudentsRegistrationView(View):
             student.save()
 
             messages.success(request, f'{student.name} successfully registered!')
-            return redirect('')
+            return redirect('student_admission')
 
 class AcademicRegistrationView(View):
     def get(self, request):
@@ -40,7 +40,7 @@ class AcademicRegistrationView(View):
             new_record.save()
 
             messages.success(request, f'{new_record.name} successfully registered!')
-            return redirect('')
+            return redirect('academic_registration')
     
 class UnitRegistrationView(View):
     def get(self, request):
@@ -59,7 +59,7 @@ class UnitRegistrationView(View):
             new_record.save()
 
             messages.success(request, 'Units successfully registered!')
-            return redirect('')
+            return redirect('unit_registration')
         
 class StudentsResidenceRegistrationView(View):
     def get(self, request):
@@ -78,7 +78,7 @@ class StudentsResidenceRegistrationView(View):
             new_record.save()
 
             messages.success(request, 'Residence info. successfully saved!')
-            return redirect('')
+            return redirect('residence_registration')
     
 class AssignmentsView(View):
     def get(self, request):
@@ -95,5 +95,5 @@ class AssignmentsView(View):
             assignment.save()
 
             messages.success(request, 'Document successfully uploaded & saved!')
-            return redirect('')
+            return redirect('assignments')
         
