@@ -4,6 +4,11 @@ from django import forms
 
 
 class StudentsRegistrationForm(forms.ModelForm):
+    """
+        New students - students admitted to the institution for the first time - use this form for admission registration.
+        The form allows them to select their course, school, degree level, study method in addition to uploading required
+        scanned documents, i.e. KCSE result slip, Secondary school leaving and birth certificates.
+    """
     SELECT_CATEGORY = (
         (None, '-- Select category --'),
         ('GSSP', 'Government Sponsorship (Bursary, HELB)'),
@@ -64,6 +69,9 @@ class StudentsRegistrationForm(forms.ModelForm):
         fields = ['programme', 'level', 'school', 'reg_no', 'category', 'study_method', 'docs']
 
 class AcademicRegistrationForm(forms.ModelForm):
+    """
+        Continuing students use this form to facilitate admission registration for each academic year.
+    """
     SELECT_ACADEMIC_YEAR = (
         (None, '-- Select academic year --'),
         ('2019/2020', '2019/2020'),
@@ -106,12 +114,19 @@ class AcademicRegistrationForm(forms.ModelForm):
         fields = '__all__'
 
 class UnitRegistrationForm(forms.ModelForm):
+    """
+        This form allows students to register their units per semester.
+    """
 
     class Meta:
         model = Units
         fields = '__all__'
 
 class UploadAssignmentsForm(forms.ModelForm):
+    """
+        This form is used to upload assignment assigned to students by their respective lecturers. The form can only upload
+        document of the specified file types.
+    """
     document = forms.FileField(
         widget=forms.FileInput(attrs={'type': 'file', 'placeholder': 'Attach your documents here', 'class': 'form-control'}),
         validators=[FileExtensionValidator(['doc', 'docx', 'odp', 'ods', 'odt', 'pdf', 'ppt', 'xlxs'])],
@@ -123,6 +138,12 @@ class UploadAssignmentsForm(forms.ModelForm):
         fields = '__all__'
 
 class ResidenceRegistrationForm(forms.ModelForm):
+    """
+        Students living outside the institution are required to submit non-residence forms each semester to the Hostels & catering
+        offices or else they will be fined Kshs.10,000/= after that academic year. This form allows students to provide their residential
+        details each semester. The records are stored in the database where they can be used for ref. by the concerned department.
+        No need to upload or submit a filled non-residence form.
+    """
     SELECT_TYPE_RESIDENCE = (
         (None, '-- Select your type of residence --'),
         ('Campus Resident', 'Campus Resident (You reside or want to reside in school hostel)'),
